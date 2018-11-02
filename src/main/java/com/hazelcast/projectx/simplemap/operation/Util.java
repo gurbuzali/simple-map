@@ -21,8 +21,9 @@ import com.hazelcast.nio.ObjectDataOutput;
 import com.hazelcast.nio.serialization.Data;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 public final class Util {
 
@@ -37,9 +38,9 @@ public final class Util {
         }
     }
 
-    public static Map<Data, Data> readMap(ObjectDataInput in) throws IOException {
+    public static ConcurrentMap<Data, Data> readMap(ObjectDataInput in) throws IOException {
         int size = in.readInt();
-        HashMap<Data, Data> map = new HashMap<>(size);
+        ConcurrentMap<Data, Data> map = new ConcurrentHashMap<>(size);
         for (int i = 0; i < size; i++) {
             map.put(in.readData(), in.readData());
         }

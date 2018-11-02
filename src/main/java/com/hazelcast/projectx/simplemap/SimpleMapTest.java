@@ -79,11 +79,6 @@ public final class SimpleMapTest {
         Config cfg = getConfig();
 
         instance = Hazelcast.newHazelcastInstance(cfg);
-        try {
-            System.in.read();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         logger = instance.getLoggingService().getLogger("SimpleMapTest");
         random = new Random();
     }
@@ -117,7 +112,7 @@ public final class SimpleMapTest {
         int getPercentage = 40;
         int putPercentage = 40;
         boolean load = false;
-        boolean isSimple = false;
+        boolean isSimple = true;
 
         if (input != null && input.length > 0) {
             for (String arg : input) {

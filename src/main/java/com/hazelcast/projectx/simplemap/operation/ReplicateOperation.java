@@ -50,7 +50,7 @@ public class ReplicateOperation extends Operation implements IdentifiedDataSeria
         out.writeInt(mapContainers.size());
         for (Map.Entry<String, ConcurrentMap<Data, Data>> entry : mapContainers.entrySet()) {
             out.writeUTF(entry.getKey());
-            out.writeObject(entry.getValue());
+            Util.writeMap(out, entry.getValue());
         }
     }
 
@@ -60,8 +60,7 @@ public class ReplicateOperation extends Operation implements IdentifiedDataSeria
         mapContainers = new ConcurrentHashMap<>(size);
         for (int i = 0; i < size; i++) {
             String name = in.readUTF();
-            ConcurrentMap<Data, Data> map = in.readObject();
-            mapContainers.put(name, map);
+            mapContainers.put(name, Util.readMap(in));
         }
 
     }
